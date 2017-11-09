@@ -44,7 +44,7 @@ Now you should be logged into the machine and see a command-line prompt $.
  - Type python mnist_softmax_1_basic.py *(and wait up to 2/3 mins!)* 
  - Number printed at end (~0.92) is the accuracy of the network
 
-**Additional exercises**
+**Additional exercises**  
 *Additional Exercise 1:* The previous exercise tells us that we achieved 92% accuracy in classifying the MNIST handwritten digits, but we have no intuition about what is going wrong in the other 8% of test images.   In this exercise we iterate through test images one-by-one and write examples to disk of successful and failed classifications.  By viewing these examples (particularly the failed ones), we get a sense of the weaknesses of the system.
 Type the following commands to run this exercise:
  - vim mnist_softmax_2_visualise.py *(to read/edit the code)*
