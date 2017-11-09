@@ -33,10 +33,10 @@ Now you should be logged into the machine and see a command-line prompt $.
 #### 2: Running first tutorial code
 **Folder setup**
  Type the following commands to get setup for running the code:
- - mkdir -p cork_ai/meetup1   *(make a new folder to work in)*
- - cd cork_ai/meetup1         *(switch to the newly created folder)*
-## TODO: github stuff here
-[//]: # (COMMENTED OUT: wget https://raw.githubusercontent.com/tensorflow/tensorflow/r1.3/tensorflow/examples/tutorials/mnist/mnist_softmax.py)
+ - mkdir -p cork_ai   *(make a new folder to work in)*
+ - cd cork_ai         *(switch to the newly created folder)*
+ - git clone https://github.com/CorkAI/Meetup1.git  *(this will make a Meetup1 folder with all the code/data we need)*
+ - cd Meetup1     *(switch to the Meetup1 folder)*
  - vim mnist_softmax_1_basic.py  *(to read/edit the code you are about to run)*
     - (Type Esc then : then q! and hit enter to exit the file)
 
@@ -45,19 +45,22 @@ Now you should be logged into the machine and see a command-line prompt $.
  - Number printed at end (~0.92) is the accuracy of the network
 
 **Additional exercises**
-The previous exercise tells us that we achieved 92% accuracy in classifying the MNIST handwritten digits, but we have no intuition about what is going wrong in the other 8% of test images.   In this exercise we iterate through test images one-by-one and write examples to disk of successful and failed classifications.  By viewing these examples (particularly the failed ones), we get a sense of the weaknesses of the system.
-Type the following commands to run the second exercise:
-## TODO: github stuff here
+*Additional Exercise 1:* The previous exercise tells us that we achieved 92% accuracy in classifying the MNIST handwritten digits, but we have no intuition about what is going wrong in the other 8% of test images.   In this exercise we iterate through test images one-by-one and write examples to disk of successful and failed classifications.  By viewing these examples (particularly the failed ones), we get a sense of the weaknesses of the system.
+Type the following commands to run this exercise:
  - vim mnist_softmax_2_visualise.py *(to read/edit the code)*
    - (Type Esc then : then q! and hit enter to exit the file)
  - python mnist_softmax_2_visualise.py  *(and wait)*
  - ls *(to list the contents of the folder)*
-## TODO:
-The examples are written in .png format with naming convention ....
+
+The examples are written in sub-folder output_images in .png format with naming convention fail_[true_class]_[assigned_class].png OR success_[true_class].png
 View a few of the failed/successful examples using the command below and see if the failures are 'difficult' examples
- - xdg-open [filename] *(to view an image..may take a few moments to appear on your screen)*
+ - ls output_images *(list the created images filenames)*
+ - xdg-open output_images/[filename] *(to view an image..may take a few moments to appear on your screen)*
  
-Although the MNIST dataset has been a computer vision benchmark for a number of years, some deep learning experts complain that the task is too simple to serve as a realistic performance benchmark for modern systems. In response to this Zalando created a drop-in replacement for MNIST, known as Fashion-MNIST, where each image represents an item of clothing, rather than a digit.  See https://github.com/zalandoresearch/fashion-mnist
+*Additional Exercise 2:* Although the MNIST dataset has been a computer vision benchmark for a number of years, there have been complaints that the task is too simple to serve as a realistic performance benchmark for modern systems. In response to this Zalando created a drop-in replacement for MNIST, known as Fashion-MNIST, where each image represents an item of clothing, rather than a digit.  See https://github.com/zalandoresearch/fashion-mnist  .  The labels (classes) to be assigned in this case are : 0=T-shirt/top, 1=Trouser, 2=Pullover, 3=Dress, 4=Coat, 5=Sandal, 6=Shirt, 7=Sneaker, 8=Bag, 9=Ankle boot.   The fashion data is already on your machine, pulled from our github (see folder data/fashion).  To re-train and test the network on the Fasion-MNIST set, type the following commands:
+ - python mnist_softmax_3_fashion.py
+ - Number printed at the end is the accuracy of the network (~0.76)
+ - Successful and failed examples are also written as in previous exercise, with prefix 'fashion' on filenames
 
 
 Stopping/Terminating your instance.

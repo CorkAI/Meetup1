@@ -40,7 +40,7 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
-
+import os
 
 FLAGS = None
 
@@ -80,12 +80,14 @@ def main(_):
 
     # Test on individual test examples, writing examples of 
     # successful and failed classifications to disk
+    if not os.path.exists(os.path.join(os.getcwd(), 'output_images')):
+            os.makedirs(os.path.join(os.getcwd(), 'output_images'))
     prediction = tf.argmax(y, 1)  # output the class that is predicted
     num_each_to_store = 5
     stored_correct = 0
     stored_incorrect = 0
     idx = 0
-    while stored_correct < num_each_to_store or stored_incorrect < num_each_to_store:
+    while (stored_correct < num_each_to_store or stored_incorrect < num_each_to_store) and idx < len(mnist.test.images):
         pred = sess.run(prediction, feed_dict={x: mnist.test.images[idx].reshape(1, 784)})
         real_label = np.argmax(mnist.test.labels[idx])
         correct = pred == real_label
@@ -95,10 +97,10 @@ def main(_):
         
         if correct and stored_correct < num_each_to_store:
             stored_correct += 1
-            plt.savefig("item_{}_{}_{}.png".format(idx, real_label.astype(str), pred.astype(str)))
+            plt.savefig("output_images/success_{}.png".format(real_label.astype(str)))
         elif not correct and stored_incorrect < num_each_to_store:
             stored_incorrect += 1
-            plt.savefig("item_{}_{}_{}.png".format(idx, real_label.astype(str), pred.astype(str)))
+            plt.savefig("output_images/fail_{}_{}.png".format(real_label.astype(str), pred.astype(str)))
         idx += 1
 
 
