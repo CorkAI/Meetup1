@@ -50,7 +50,6 @@ Type the following commands to run this exercise:
  - vim mnist_softmax_2_visualise.py *(to read/edit the code)*
    - (Type Esc then : then q! and hit enter to exit the file)
  - python mnist_softmax_2_visualise.py  *(and wait)*
- - ls *(to list the contents of the folder)*
 
 The examples are written in sub-folder output_images in .png format with naming convention fail_[true_class]_[assigned_class].png OR success_[true_class].png
 View a few of the failed/successful examples using the command below and see if the failures are 'difficult' examples
