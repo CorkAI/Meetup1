@@ -112,6 +112,7 @@ def main(_):
                 plt.savefig("output_images/{}fail_{}_{}.png".format(file_prefix, real_label.astype(str), pred.astype(str)))
             idx += 1
 
+    sess.close()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
