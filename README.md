@@ -37,19 +37,19 @@ Now you should be logged into the machine and see a command-line prompt $.
  - ```cd cork_ai```         *(switch to the newly created folder)*
  - ```git clone https://github.com/CorkAI/Meetup1.git```  *(this will make a Meetup1 folder with all the code/data we need)*
  - ```cd Meetup1```     *(switch to the Meetup1 folder)*
- - ```vim mnist_softmax_1_basic.py```  *(to read/edit the code you are about to run)*
+ - ```vim mnist_softmax.py```  *(to read/edit the code you are about to run)*
     - (Type Esc then : then q! and hit enter to exit the file)
 
 **Executing code**
- - Type ```python mnist_softmax_1_basic.py``` *(and wait up to 2/3 mins!)* 
+ - Type ```python mnist_softmax.py``` *(and wait up to 2/3 mins!)* 
  - Number printed at end (~0.92) is the accuracy of the network
 
 **Additional exercises**  
 *Additional Exercise 1:* The previous exercise tells us that we achieved 92% accuracy in classifying the MNIST handwritten digits, but we have no intuition about what is going wrong in the other 8% of test images.   In this exercise we iterate through test images one-by-one and write examples to disk of successful and failed classifications.  By viewing these examples (particularly the failed ones), we get a sense of the weaknesses of the system.
 Type the following commands to run this exercise:
- - ```vim mnist_softmax_2_visualise.py``` *(to read/edit the code)*
+ - ```vim mnist_softmax.py``` *(to read/edit the code)*
    - (Type Esc then : then q! and hit enter to exit the file)
- - ```python mnist_softmax_2_visualise.py```  *(and wait)*  
+ - ```python mnist_softmax.py --write_samples```  *(and wait)*  
  
 The examples are written in sub-folder output_images in .png format with naming convention fail_[true_class]_[assigned_class].png OR success_[true_class].png
 View a few of the failed/successful examples using the command below and see if the failures are 'difficult' examples
@@ -57,7 +57,7 @@ View a few of the failed/successful examples using the command below and see if 
  - ```xdg-open output_images/[filename]``` *(to view an image..may take a few moments to appear on your screen)*
  
 *Additional Exercise 2:* Although the MNIST dataset has been a computer vision benchmark for a number of years, there have been complaints that the task is too simple to serve as a realistic performance benchmark for modern systems. In response to this Zalando created a drop-in replacement for MNIST, known as Fashion-MNIST, where each image represents an item of clothing, rather than a digit.  See https://github.com/zalandoresearch/fashion-mnist  .  The labels (classes) to be assigned in this case are : 0=T-shirt/top, 1=Trouser, 2=Pullover, 3=Dress, 4=Coat, 5=Sandal, 6=Shirt, 7=Sneaker, 8=Bag, 9=Ankle boot.   The fashion data is already on your machine, pulled from our github (see folder data/fashion).  To re-train and test the network on the Fasion-MNIST set, type the following commands:
- - ```python mnist_softmax_3_fashion.py```
+ - ```python mnist_softmax.py --data_dir data/fashion --write_samples```
  - Number printed at the end is the accuracy of the network (~0.76)
  - Successful and failed examples are also written as in previous exercise, with prefix 'fashion' on filenames
 
@@ -66,16 +66,17 @@ View a few of the failed/successful examples using the command below and see if 
 
 #### 4: Running second tutorial code
 The second tutorial will use a convolutional neural network to solve the same tasks as previously. The code and folder setup is already.  We've added some code to store the trained model on disk, so that we only need to train one time, and for any further tests we can use the trained model stored on disk [**TODO:Peter**].  If you want to have a look at the code before you run it please use
- - ```vim mnist_deep_1_store.py```
+ - ```vim mnist_deep.py```
     - (Type Esc then : then q! and hit enter to exit the file)  
 
 **Executing code**
- - ```python mnist_deep_1_store.py``` *(and wait 7 to 8 minutes??? **TODO** if it's too long, let's just reduce the number of iterations)*  
+ - ```python mnist_deep.py``` *(and wait 7 to 8 minutes??? **TODO** if it's too long, let's just reduce the number of iterations)*  
  - Verify the accuracy printed at the end of the file (~99.2%)  
  - [**TODO:** Check that the model is stored on disk as expected]
  
 **Additional exercises**  
 *Additional Exercise 1:*  Run the stored trained convolutional network on the Fashion MNIST data
+  - ```python mnist_deep.py --data_dir data/fashion```
 
 *Additional Exercise 2:* Run the stored trained convolutional network on the (pre-prepared): handwritten digits provided
 
