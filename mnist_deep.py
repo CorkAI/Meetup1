@@ -202,18 +202,20 @@ def main(_):
                 plt.savefig("output_images/{}fail_{}_{}.png".format(file_prefix, real_label.astype(str), pred.astype(str)))
             idx += 1
 
+    # Test on extra test images made from photos of handwritten digits
+    # or from digitally created 'hand' written digits
     if FLAGS.extra_test_imgs:
         if not os.path.exists(os.path.join(os.getcwd(), 'output_images')):
             os.makedirs(os.path.join(os.getcwd(), 'output_images'))
         prediction = tf.argmax(y_conv, 1)
         file_prefix = 'extra_'
-        for idx in range(1, 4):
-            img_file = 'extra_test_digits/digital_{}.jpg'.format(idx)
+        for idx in range(1, 7):
+            img_file = 'extra_test_digits/{}.jpg'.format(idx)
             img = misc.imread(img_file)
             pred = sess.run(prediction, feed_dict={x: img.reshape(1, 784), keep_prob: 1.0})
 
             plt.imshow(img, cmap='gray')
-            plt.savefig("output_images/{}{}{}.png".format(file_prefix, idx, pred))
+            plt.savefig("output_images/{}{}.png".format(file_prefix, pred))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
