@@ -49,7 +49,7 @@ Now you should be logged into the machine and see a command-line prompt $.
 Type the following commands to run this exercise:
  - ```vim mnist_softmax.py``` *(to read/edit the code)*
    - (Type Esc then : then q! and hit enter to exit the file)
- - ```python mnist_softmax.py --write_samples```  *(and wait)*  
+ - ```python mnist_softmax.py --write_samples 1```  *(and wait)*  
  
 The examples are written in sub-folder output_images in .png format with naming convention fail_[true_class]_[assigned_class].png OR success_[true_class].png
 View a few of the failed/successful examples using the command below and see if the failures are 'difficult' examples
@@ -57,7 +57,7 @@ View a few of the failed/successful examples using the command below and see if 
  - ```xdg-open output_images/[filename]``` *(to view an image..may take a few moments to appear on your screen)*
  
 *Additional Exercise 2:* Although the MNIST dataset has been a computer vision benchmark for a number of years, there have been complaints that the task is too simple to serve as a realistic performance benchmark for modern systems. In response to this Zalando created a drop-in replacement for MNIST, known as Fashion-MNIST, where each image represents an item of clothing, rather than a digit.  See https://github.com/zalandoresearch/fashion-mnist  .  The labels (classes) to be assigned in this case are : 0=T-shirt/top, 1=Trouser, 2=Pullover, 3=Dress, 4=Coat, 5=Sandal, 6=Shirt, 7=Sneaker, 8=Bag, 9=Ankle boot.   The fashion data is already on your machine, pulled from our github (see folder data/fashion).  To re-train and test the network on the Fasion-MNIST set, type the following commands:
- - ```python mnist_softmax.py --data_dir data/fashion --write_samples```
+ - ```python mnist_softmax.py --data_dir data/fashion --write_samples 1```
  - Number printed at the end is the accuracy of the network (~0.76)
  - Successful and failed examples are also written as in previous exercise, with prefix 'fashion' on filenames
 
@@ -79,11 +79,25 @@ The second tutorial will use a convolutional neural network to solve the same ta
   - ```python mnist_deep.py --data_dir data/fashion```
 
 *Additional Exercise 2:* Run the stored trained convolutional network on the (pre-prepared): handwritten digits provided
+The git repository contains some manually created test images in folder extra_test_digits.
+Images 1.jpg 2.jpg and 3.jpg are created from photos of handwritten digits (manipulated to be grey-scale, 28x28, white-on-black).  The original photographs are also available to view at 1_photo.jpg etc.
+Images 4.jpg 5.jpg and 6.jpg are created digitally using a 28x28 black background and white 'paintbrush'.
+Have a look at the images and see how closely they resemble the MNIST data (samples in your output_images folder if you have done previous additional exercises).
+Now test your trained convolutional network on these images using the following commands
+ - ```python mnist_deep.py --extra_test_imgs 1```
+Output files are written in folder output_images with filename extra_[pred] where pred is the digit assigned by the convolutional network.  How well did the network do?!
 
 #### 5: Ending your AWS session
-Stopping/Terminating your instance.
-If you do not object to losing your work, terminate.
-If you want to save your work, choose stop, but be aware of small cost for volume storage.
+When you are finished working on AWS you need to stop (or terminate) your session to discontinue usage charges.
+This is **not** achieved by just logging out in the terminal!!
+
+**Stopping/Terminating your instance.**
+- From EC2 dashboard->instances 
+ - You should see your launched instance listed (and selected with blue checkbox)
+ - In the "Actions" drop-down menu choose "Instance State" and either "stop" or "terminate"
+   - "stop" will end your session, but keep your instance and data safe for next time you want to use it (there is a very small fee for this - Chris??)
+   - "terminate" will end your session and will **not** retain your data or your instance state
+
 
 
 
