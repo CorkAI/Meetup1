@@ -13,9 +13,12 @@
 # limitations under the License.
 
 
-# MINOR FORMATTING EDITS FOR THE CORK AI MEETUP
-# OTHERWISE UNCHANGED FROM THE TENSORFLOW RESPOSITORY OCT 2017
+# MINOR ALTERATIONS FOR THE CORK AI MEETUP 
+# WE USE FASION-MNIST DATA
+# WE TEST ON INDIVIDUAL TEST IMAGES AND WRITE EXAMPLES OF 
+# CORRECT AND INCORRECT CLASSIFICATION TO DISK FOR EXAMINATION
 # ==============================================================================
+
 
 """A very simple MNIST classifier.
 
@@ -32,6 +35,12 @@ import sys
 from tensorflow.examples.tutorials.mnist import input_data
 
 import tensorflow as tf
+
+import matplotlib as mpl
+mpl.use('Agg')
+import matplotlib.pyplot as plt
+import numpy as np
+import os
 
 FLAGS = None
 
@@ -64,10 +73,9 @@ def main(_):
     sess = tf.InteractiveSession()
     tf.global_variables_initializer().run()
     
-    # Train for 1000 epochs
+    # Train
     for _ in range(1000):
         batch_xs, batch_ys = mnist.train.next_batch(100)
-        print('epoch', _)
         sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 
     # Test trained model
@@ -75,10 +83,40 @@ def main(_):
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
     print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
 
+    # Test on individual test examples, writing examples of 
+    # successful and failed classifications to disk
+    if FLAGS.write_samples:
+        file_prefix = ''
+        if 'fashion' in FLAGS.data_dir:
+            file_prefix = 'fashion_'
+        if not os.path.exists(os.path.join(os.getcwd(), 'output_images')):
+                os.makedirs(os.path.join(os.getcwd(), 'output_images'))
+        prediction = tf.argmax(y, 1)  # output the class that is predicted
+        num_each_to_store = 5
+        stored_correct = 0
+        stored_incorrect = 0
+        idx = 0
+        while (stored_correct < num_each_to_store or stored_incorrect < num_each_to_store) and idx < len(mnist.test.images):
+            pred = sess.run(prediction, feed_dict={x: mnist.test.images[idx].reshape(1, 784)})
+            real_label = np.argmax(mnist.test.labels[idx])
+            correct = pred == real_label
+            
+            img = np.reshape(mnist.test.images[idx], [28, 28])
+            plt.imshow(img, cmap='gray')
+            
+            if correct and stored_correct < num_each_to_store:
+                stored_correct += 1
+                plt.savefig("output_images/{}success_{}.png".format(file_prefix, real_label.astype(str)))
+            elif not correct and stored_incorrect < num_each_to_store:
+                stored_incorrect += 1
+                plt.savefig("output_images/{}fail_{}_{}.png".format(file_prefix, real_label.astype(str), pred.astype(str)))
+            idx += 1
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', type=str, default='/tmp/tensorflow/mnist/input_data',
                         help='Directory for storing input data')
+    parser.add_argument('--write_samples', type=int, default=0)
     FLAGS, unparsed = parser.parse_known_args()
     tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)
