@@ -54,7 +54,7 @@ Type the following commands to run this exercise:
 The examples are written in sub-folder output_images in .png format with naming convention fail_[true_class]_[assigned_class].png OR success_[true_class].png
 View a few of the failed/successful examples using the command below and see if the failures are 'difficult' examples
  - ```ls output_images``` *(list the created images filenames)*
- - ```xdg-open output_images/[filename]``` *(to view an image..may take a few moments to appear on your screen)*
+ - ```xdg-open output_images/[filename]``` *(to view an image..may take a few moments to appear on your screen)* [**TODO** additional instructions for mac/windows users]
  
 *Additional Exercise 2:* Although the MNIST dataset has been a computer vision benchmark for a number of years, there have been complaints that the task is too simple to serve as a realistic performance benchmark for modern systems. In response to this Zalando created a drop-in replacement for MNIST, known as Fashion-MNIST, where each image represents an item of clothing, rather than a digit.  See https://github.com/zalandoresearch/fashion-mnist  .  The labels (classes) to be assigned in this case are : 0=T-shirt/top, 1=Trouser, 2=Pullover, 3=Dress, 4=Coat, 5=Sandal, 6=Shirt, 7=Sneaker, 8=Bag, 9=Ankle boot.   The fashion data is already on your machine, pulled from our github (see folder data/fashion).  To re-train and test the network on the Fasion-MNIST set, type the following commands:
  - ```python mnist_softmax.py --data_dir data/fashion --write_samples 1```
@@ -70,7 +70,7 @@ The second tutorial will use a convolutional neural network to solve the same ta
     - (Type Esc then : then q! and hit enter to exit the file)  
 
 **Executing code**
- - ```python mnist_deep.py``` *(and wait 7 to 8 minutes??? **TODO** if it's too long, let's just reduce the number of iterations)*  
+ - ```python mnist_deep.py``` *(and wait)*  
  - Verify the accuracy printed at the end of the file (~99.2%)  
  - [**TODO:** Check that the model is stored on disk as expected]
  
