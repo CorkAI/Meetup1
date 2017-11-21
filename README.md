@@ -23,7 +23,7 @@ Redeem your AWS credit using the code on the voucher provided at the workshop
  - If you do not have an existing key pair, then select "Create a new key pair" otherwise select an existing key pair. Note that you must have access to the key pair PEM file locally.
 
 **Connecting to the launched instance:**
- - From EC2 dashboard->instances  (Need to check again how to get there from previous step!!)
+ - From EC2 dashboard->instances
  - You should see your launched instance listed
  - To connect to the instance 
    - copy public DNS(ipv4) field
@@ -43,6 +43,10 @@ Now you should be logged into the machine and see a command-line prompt $.
  - ```vim mnist_softmax.py```  *(to read/edit the code you are about to run)*
     - (Type Esc then : then q! and hit enter to exit the file)
 
+**Enable TensorFlow**
+To enable TensorFlow on the instance run:
+```source activate tensorflow_p27```
+
 **Executing code**
  - Type ```python mnist_softmax.py``` *(and wait up to 2/3 mins!)* 
  - Number printed at end (~0.92) is the accuracy of the network
@@ -57,12 +61,22 @@ Type the following commands to run this exercise:
 The examples are written in sub-folder output_images in .png format with naming convention fail_[true_class]_[assigned_class].png OR success_[true_class].png
 View a few of the failed/successful examples using the command below and see if the failures are 'difficult' examples
  - ```ls output_images``` *(list the created images filenames)*
- - ```xdg-open output_images/[filename]``` *(to view an image..may take a few moments to appear on your screen)* [**TODO** additional instructions for mac/windows users]
- 
+
+To download and view the images open a new shell on your local machine and create a fresh empty directory. The use the scp command to copy the output images to your local system:
+
+```sh
+$ mkdir output_images
+$ cd output_images
+$ scp -i /path/my-key-pair.pem ubuntu@[copied-DNS]:/home/ubuntu/cork_ai/Meetup1/output_images/* .
+```
+
+View the images using Finder / Explorer.
+
 *Additional Exercise 2:* Although the MNIST dataset has been a computer vision benchmark for a number of years, there have been complaints that the task is too simple to serve as a realistic performance benchmark for modern systems. In response to this Zalando created a drop-in replacement for MNIST, known as Fashion-MNIST, where each image represents an item of clothing, rather than a digit.  See https://github.com/zalandoresearch/fashion-mnist  .  The labels (classes) to be assigned in this case are : 0=T-shirt/top, 1=Trouser, 2=Pullover, 3=Dress, 4=Coat, 5=Sandal, 6=Shirt, 7=Sneaker, 8=Bag, 9=Ankle boot.   The fashion data is already on your machine, pulled from our github (see folder data/fashion).  To re-train and test the network on the Fasion-MNIST set, type the following commands:
  - ```python mnist_softmax.py --data_dir data/fashion --write_samples 1```
  - Number printed at the end is the accuracy of the network (~0.76)
  - Successful and failed examples are also written as in previous exercise, with prefix 'fashion' on filenames
+ - use the scp command to download and inspect these images
 
 #### 3: Pizza and Beer Break  
 **Please refuel before the next session :-) 
@@ -100,10 +114,4 @@ This is **not** achieved by just logging out in the terminal!!
  - In the "Actions" drop-down menu choose "Instance State" and either "stop" or "terminate"
    - "stop" will end your session, but keep your instance and data safe for next time you want to use it (there is a very small fee for this - Chris??)
    - "terminate" will end your session and will **not** retain your data or your instance state
-
-
-
-
-
-
 
