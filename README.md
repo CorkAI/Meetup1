@@ -13,11 +13,14 @@ Redeem your AWS credit using the code on the voucher provided at the workshop
  - Go to "Services" and under the "compute" heading, choose "EC2"
  - Set "region" in top-right corner to be Ireland
  - Click on "Launch Instance"
- - Select "Deep Learning AMI CUDA 8 Ubuntu Version"
+ - Select "Deep Learning AMI (Ubuntu) Version 1.0" AMI ID: ami-1812bb61
  - Scroll down and select "GPU compute ... p2.xlarge"
+ - In the Configure Instance section accept the default settings
+ - In the Storage section accept the default settings
+ - Ensure that in the security group setting SSH access ( to port 22 ) is enabled.
  - Click Review and Launch
  - Click Launch
- - Choose your existing key pair (.pem) file   (Peter: maybe some instruction on how to set this up on the fly for participants who don't have it done in advance?) 
+ - If you do not have an existing key pair, then select "Create a new key pair" otherwise select an existing key pair. Note that you must have access to the key pair PEM file locally.
 
 **Connecting to the launched instance:**
  - From EC2 dashboard->instances  (Need to check again how to get there from previous step!!)
