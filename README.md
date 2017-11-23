@@ -75,7 +75,7 @@ To download and view the images open a new shell on your local machine and creat
  - use the scp command to download and inspect these images
 
 #### 3: Pizza and Beer Break  
-**Please refuel before the next session :-) 
+**Please refuel before the next session :-) **
 
 #### 4: Running second tutorial code
 The second tutorial will use a convolutional neural network to solve the same tasks as previously. The code and folder setup is ready for use.  We've added some code to store the trained model on disk, so that we only need to train one time, and for any further tests we can use the trained model stored on disk.  If you want to have a look at the code before you run it please use
@@ -85,7 +85,10 @@ The second tutorial will use a convolutional neural network to solve the same ta
 **Executing code**
  - ```python mnist_deep.py``` *(and wait)*  
  - Verify the accuracy printed at the end of the file (~99.2%)  
- - [**TODO:** Check that the model is stored on disk as expected]
+ - type ```ls saved_model``` to verify that a directory named saved_model has been created and contains several files (which store the network graph and parameter values)
+ - type ```python mnist_deep.py``` once more to run the code again, and note that the model is restored from disk and does not need to be trained before computing accuracy.
+
+Note that if you wish you can copy the saved_model folder to your local machine and try to test the trained model there. The compute GPU is very helpful (or almost essential) for model training but most machines can run the testing phase once the model is trained. 
  
 **Additional exercises**  
 *Additional Exercise 1:*  Run the stored trained convolutional network on the Fashion MNIST data
