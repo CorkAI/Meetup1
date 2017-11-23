@@ -28,7 +28,6 @@ from __future__ import print_function
 
 import argparse
 import sys
-import tempfile
 
 from tensorflow.examples.tutorials.mnist import input_data
 from scipy import misc
@@ -143,6 +142,9 @@ def main(_):
     # Build the graph for the deep net
     y_conv, keep_prob = deepnn(x)
 
+    # Create a saver to store the model once trained
+    model_saver = tf.train.Saver()
+
     sess = tf.InteractiveSession()
 
     with tf.name_scope('loss'):
@@ -157,19 +159,27 @@ def main(_):
         correct_prediction = tf.cast(correct_prediction, tf.float32)
     accuracy = tf.reduce_mean(correct_prediction)
 
-    graph_location = tempfile.mkdtemp()
-    print('Saving graph to: %s' % graph_location)
-    train_writer = tf.summary.FileWriter(graph_location)
-    train_writer.add_graph(tf.get_default_graph())
+    if os.path.isfile(os.path.join(os.getcwd(), 'saved_model/cork_ai_model_deep.ckpt.index')):
+        model_saver.restore(sess, "saved_model/cork_ai_model_deep.ckpt")
+        print("Model restored from disk")
 
-    sess.run(tf.global_variables_initializer())
-    for i in range(20000):
-        batch = mnist.train.next_batch(50)
-        if i % 100 == 0:
-            train_accuracy = accuracy.eval(feed_dict={x: batch[0], y_: batch[1], keep_prob: 1.0})
-            print('step %d, training accuracy %g' % (i, train_accuracy))
-        train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
+    else:
+        print("Did not file stored model, starting training")
+        sess.run(tf.global_variables_initializer())
+        for i in range(20000):
+            batch = mnist.train.next_batch(50)
+            if i % 100 == 0:
+                train_accuracy = accuracy.eval(feed_dict={x: batch[0], y_: batch[1], keep_prob: 1.0})
+                print('step %d, training accuracy %g' % (i, train_accuracy))
+            train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
 
+        # Training is complete, let's store the trained model to disk
+        if not os.path.exists(os.path.join(os.getcwd(), 'saved_model')):
+            os.makedirs(os.path.join(os.getcwd(), 'saved_model'))
+        save_path = model_saver.save(sess, "saved_model/cork_ai_model_deep.ckpt")
+        print("Model saved in file: %s" % save_path)
+
+    # and let's evaluate the accuracy over the mnist test set (unseen data)
     print('test accuracy %g' % accuracy.eval(feed_dict={
                                              x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))
 
@@ -216,6 +226,7 @@ def main(_):
 
             plt.imshow(img, cmap='gray')
             plt.savefig("output_images/{}{}.png".format(file_prefix, pred))
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
