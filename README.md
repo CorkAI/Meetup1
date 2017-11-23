@@ -78,7 +78,7 @@ To download and view the images open a new shell on your local machine and creat
 **Please refuel before the next session :-) 
 
 #### 4: Running second tutorial code
-The second tutorial will use a convolutional neural network to solve the same tasks as previously. The code and folder setup is already.  We've added some code to store the trained model on disk, so that we only need to train one time, and for any further tests we can use the trained model stored on disk.  If you want to have a look at the code before you run it please use
+The second tutorial will use a convolutional neural network to solve the same tasks as previously. The code and folder setup is ready for use.  We've added some code to store the trained model on disk, so that we only need to train one time, and for any further tests we can use the trained model stored on disk.  If you want to have a look at the code before you run it please use
  - ```vim mnist_deep.py```
     - (Type Esc then : then q! and hit enter to exit the file)  
 
