@@ -62,7 +62,7 @@ The examples are written in sub-folder output_images in .png format with naming 
 View a few of the failed/successful examples using the command below and see if the failures are 'difficult' examples
  - ```ls output_images``` *(list the created images filenames)*
 
-To download and view the images (linux, mac, cygwin) open a new shell on your local machine and create a fresh empty directory. The use the scp command to copy the output images to your local system:
+To download and view the images (linux, mac, cygwin) open a new shell on your local machine and create a fresh empty directory. Then copy the output images to your local system:
  - ```mkdir output_images```
  - ```cd output_images```
  - ```scp -i /path/my-key-pair.pem ubuntu@[copied-DNS]:/home/ubuntu/cork_ai/Meetup1/output_images/* .```
