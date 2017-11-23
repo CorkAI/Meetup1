@@ -63,15 +63,15 @@ View a few of the failed/successful examples using the command below and see if 
  - ```ls output_images``` *(list the created images filenames)*
 
 To download and view the images (linux, mac, cygwin) open a new shell on your local machine and create a fresh empty directory. The use the scp command to copy the output images to your local system:
- - ```sh
- - mkdir output_images
- - cd output_images
- - scp -i /path/my-key-pair.pem ubuntu@[copied-DNS]:/home/ubuntu/cork_ai/Meetup1/output_images/* .```
- - View the images using Finder / Explorer.
+ - ```mkdir output_images```
+ - ```cd output_images```
+ - ```scp -i /path/my-key-pair.pem ubuntu@[copied-DNS]:/home/ubuntu/cork_ai/Meetup1/output_images/* .```
+ - View the images using Finder / Explorer or your preferred image viewer.
 
 To download and view the images using putty on Windows:
  - Open a command line prompt (cmd)
  - type ```pscp -i C:\path\my-key-pair.ppk ubuntu@[copied-DNS]:/home/ubuntu/cork_ai/Meetup1/output_images/* c:\[my_local_directory]```
+ - View the images using your preferred image viewer
 
 *Additional Exercise 2:* Although the MNIST dataset has been a computer vision benchmark for a number of years, there have been complaints that the task is too simple to serve as a realistic performance benchmark for modern systems. In response to this Zalando created a drop-in replacement for MNIST, known as Fashion-MNIST, where each image represents an item of clothing, rather than a digit.  See https://github.com/zalandoresearch/fashion-mnist  .  The labels (classes) to be assigned in this case are : 0=T-shirt/top, 1=Trouser, 2=Pullover, 3=Dress, 4=Coat, 5=Sandal, 6=Shirt, 7=Sneaker, 8=Bag, 9=Ankle boot.   The fashion data is already on your machine, pulled from our github (see folder data/fashion).  To re-train and test the network on the Fasion-MNIST set, type the following commands:
  - ```python mnist_softmax.py --data_dir data/fashion --write_samples 1```
