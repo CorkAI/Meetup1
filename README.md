@@ -29,7 +29,7 @@ Redeem your AWS credit using the code on the voucher provided at the workshop
    - type ```ssh -i /path/my-key-pair.pem ubuntu@[copied-DNS]```
    (you may need to type ```chmod 400 /path/my-key-pair.pem``` if your key_pair permissions are incorrect) 
 (If in doubt, see also http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html)
- - To connect to the instance using putty, please follow directions at http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
+ - To connect to the instance using putty on Windows, please follow directions at http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
 
 Now you should be logged into the machine and see a command-line prompt $.
 
