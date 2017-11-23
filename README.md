@@ -15,19 +15,18 @@ Redeem your AWS credit using the code on the voucher provided at the workshop
  - Click on "Launch Instance"
  - Select "Deep Learning AMI (Ubuntu) Version 1.0" AMI ID: ami-1812bb61
  - Scroll down and select "GPU compute ... p2.xlarge"
- - In the Configure Instance section accept the default settings
- - In the Storage section accept the default settings
- - Ensure that in the security group setting SSH access ( to port 22 ) is enabled.
- - Click Review and Launch
- - Click Launch
- - If you do not have an existing key pair, then select "Create a new key pair" otherwise select an existing key pair. Note that you must have access to the key pair PEM file locally.
+ - Click "Review and Launch"
+ - Click "Launch"
+ - If you do not have an existing key pair, then select "Create a new key pair".  This will direct you to create and download a .pem file to your disk. Otherwise select an existing key pair. Note that you must have access to the key pair PEM file locally.
+ - Click "Launch Instances"
 
 **Connecting to the launched instance:**
+ - From Services menu choose EC2
  - From EC2 dashboard->instances
  - You should see your launched instance listed
  - To connect to the instance 
    - copy public DNS(ipv4) field
-   - type ```ssh -Y -i /path/my-key-pair.pem ubuntu@[copied-DNS]```
+   - type ```ssh -i /path/my-key-pair.pem ubuntu@[copied-DNS]```
    (you may need to type ```chmod 400 /path/my-key-pair.pem``` if your key_pair permissions are incorrect) 
 (If in doubt, see also http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html)
 
@@ -43,8 +42,8 @@ Now you should be logged into the machine and see a command-line prompt $.
  - ```vim mnist_softmax.py```  *(to read/edit the code you are about to run)*
     - (Type Esc then : then q! and hit enter to exit the file)
 
-**Enable TensorFlow**
-To enable TensorFlow on the instance run:
+**Launch conda environment**
+Our AWS machine has multiple deep-learning environments installed (conda environments).  We need to launch one so that the libraries we need (e.g. tensorflow) are ready for use:
 ```source activate tensorflow_p27```
 
 **Executing code**
@@ -63,11 +62,10 @@ View a few of the failed/successful examples using the command below and see if 
  - ```ls output_images``` *(list the created images filenames)*
 
 To download and view the images open a new shell on your local machine and create a fresh empty directory. The use the scp command to copy the output images to your local system:
-
-```sh
-$ mkdir output_images
-$ cd output_images
-$ scp -i /path/my-key-pair.pem ubuntu@[copied-DNS]:/home/ubuntu/cork_ai/Meetup1/output_images/* .
+ - ```sh
+ - mkdir output_images
+ - cd output_images
+ - scp -i /path/my-key-pair.pem ubuntu@[copied-DNS]:/home/ubuntu/cork_ai/Meetup1/output_images/* .
 ```
 
 View the images using Finder / Explorer.
