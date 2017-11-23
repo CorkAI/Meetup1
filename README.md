@@ -43,8 +43,8 @@ Now you should be logged into the machine and see a command-line prompt $.
     - (Type Esc then : then q! and hit enter to exit the file)
 
 **Launch conda environment**
-Our AWS machine has multiple deep-learning environments installed (conda environments).  We need to launch one so that the libraries we need (e.g. tensorflow) are ready for use:
-```source activate tensorflow_p27```
+ Our AWS machine has multiple deep-learning environments installed (conda environments).  We need to launch one so that the libraries we need (e.g. tensorflow) are ready for use:
+ ```source activate tensorflow_p27```
 
 **Executing code**
  - Type ```python mnist_softmax.py``` *(and wait up to 2/3 mins!)* 
@@ -65,10 +65,8 @@ To download and view the images open a new shell on your local machine and creat
  - ```sh
  - mkdir output_images
  - cd output_images
- - scp -i /path/my-key-pair.pem ubuntu@[copied-DNS]:/home/ubuntu/cork_ai/Meetup1/output_images/* .
-```
-
-View the images using Finder / Explorer.
+ - scp -i /path/my-key-pair.pem ubuntu@[copied-DNS]:/home/ubuntu/cork_ai/Meetup1/output_images/* .```
+ - View the images using Finder / Explorer.
 
 *Additional Exercise 2:* Although the MNIST dataset has been a computer vision benchmark for a number of years, there have been complaints that the task is too simple to serve as a realistic performance benchmark for modern systems. In response to this Zalando created a drop-in replacement for MNIST, known as Fashion-MNIST, where each image represents an item of clothing, rather than a digit.  See https://github.com/zalandoresearch/fashion-mnist  .  The labels (classes) to be assigned in this case are : 0=T-shirt/top, 1=Trouser, 2=Pullover, 3=Dress, 4=Coat, 5=Sandal, 6=Shirt, 7=Sneaker, 8=Bag, 9=Ankle boot.   The fashion data is already on your machine, pulled from our github (see folder data/fashion).  To re-train and test the network on the Fasion-MNIST set, type the following commands:
  - ```python mnist_softmax.py --data_dir data/fashion --write_samples 1```
@@ -80,7 +78,7 @@ View the images using Finder / Explorer.
 **Please refuel before the next session :-) 
 
 #### 4: Running second tutorial code
-The second tutorial will use a convolutional neural network to solve the same tasks as previously. The code and folder setup is already.  We've added some code to store the trained model on disk, so that we only need to train one time, and for any further tests we can use the trained model stored on disk [**TODO:Peter**].  If you want to have a look at the code before you run it please use
+The second tutorial will use a convolutional neural network to solve the same tasks as previously. The code and folder setup is already.  We've added some code to store the trained model on disk, so that we only need to train one time, and for any further tests we can use the trained model stored on disk.  If you want to have a look at the code before you run it please use
  - ```vim mnist_deep.py```
     - (Type Esc then : then q! and hit enter to exit the file)  
 
