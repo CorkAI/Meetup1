@@ -43,6 +43,34 @@ import os
 FLAGS = None
 
 
+# convenience function to specify strides and padding on all conv2d calls
+def conv2d(x, W):
+    """conv2d returns a 2d convolution layer with full stride."""
+    return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
+
+
+# convenience function to specify strides and pool window size for all max_pool calls
+def max_pool_2x2(x):
+    """max_pool_2x2 downsamples a feature map by 2X."""
+    return tf.nn.max_pool(x, ksize=[1, 2, 2, 1],
+                          strides=[1, 2, 2, 1], padding='SAME')
+
+
+# convenience function to get a matrix of weight values drawn randomly from a normal distribution
+def weight_variable(shape):
+    """weight_variable generates a weight variable of a given shape."""
+    initial = tf.truncated_normal(shape, stddev=0.1)
+    return tf.Variable(initial)
+
+
+# convenience function to get a matrix of bias values set at a constant value
+def bias_variable(shape):
+    """bias_variable generates a bias variable of a given shape."""
+    initial = tf.constant(0.1, shape=shape)
+    return tf.Variable(initial)
+
+
+# Graph building function
 def deepnn(x):
     """deepnn builds the graph for a deep net for classifying digits.
 
@@ -103,40 +131,19 @@ def deepnn(x):
         b_fc2 = bias_variable([10])
 
         y_conv = tf.matmul(h_fc1_drop, W_fc2) + b_fc2
+
+    # note that we return 'logit' values - i.e. values prior to doing softmax
     return y_conv, keep_prob
-
-
-def conv2d(x, W):
-    """conv2d returns a 2d convolution layer with full stride."""
-    return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
-
-
-def max_pool_2x2(x):
-    """max_pool_2x2 downsamples a feature map by 2X."""
-    return tf.nn.max_pool(x, ksize=[1, 2, 2, 1],
-                          strides=[1, 2, 2, 1], padding='SAME')
-
-
-def weight_variable(shape):
-    """weight_variable generates a weight variable of a given shape."""
-    initial = tf.truncated_normal(shape, stddev=0.1)
-    return tf.Variable(initial)
-
-
-def bias_variable(shape):
-    """bias_variable generates a bias variable of a given shape."""
-    initial = tf.constant(0.1, shape=shape)
-    return tf.Variable(initial)
 
 
 def main(_):
     # Import data
     mnist = input_data.read_data_sets(FLAGS.data_dir, one_hot=True)
 
-    # Create the model
+    # placeholder for input data
     x = tf.placeholder(tf.float32, [None, 784])
 
-    # Define loss and optimizer
+    # placeholder for true labels
     y_ = tf.placeholder(tf.float32, [None, 10])
 
     # Build the graph for the deep net
@@ -145,32 +152,43 @@ def main(_):
     # Create a saver to store the model once trained
     model_saver = tf.train.Saver()
 
+    # create a session so that we can start to use our graph
     sess = tf.InteractiveSession()
 
+    # define how loss should be calculated
     with tf.name_scope('loss'):
         cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y_conv)
+    
+    # average loss over the batch
     cross_entropy = tf.reduce_mean(cross_entropy)
 
+    # define how optimization should be achieved (ADAM = gradient descent variant)
     with tf.name_scope('adam_optimizer'):
         train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
 
+    # define how we will calculate accuracy of network
     with tf.name_scope('accuracy'):
         correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
         correct_prediction = tf.cast(correct_prediction, tf.float32)
     accuracy = tf.reduce_mean(correct_prediction)
 
+    # If pre-trained model exists on disk, then just load that
     if os.path.isfile(os.path.join(os.getcwd(), 'saved_model/cork_ai_model_deep.ckpt.index')):
         model_saver.restore(sess, "saved_model/cork_ai_model_deep.ckpt")
         print("Model restored from disk")
 
+    # If no trained model on disk, then train it now:
     else:
         print("Did not file stored model, starting training")
         sess.run(tf.global_variables_initializer())
         for i in range(20000):
+            # grab a batch of training data
             batch = mnist.train.next_batch(50)
             if i % 100 == 0:
+                # every 100 epochs run a test to see how the network accuracy is doing
                 train_accuracy = accuracy.eval(feed_dict={x: batch[0], y_: batch[1], keep_prob: 1.0})
                 print('step %d, training accuracy %g' % (i, train_accuracy))
+            # and train with our latest batch
             train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
 
         # Training is complete, let's store the trained model to disk
