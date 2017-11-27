@@ -118,6 +118,6 @@ This is **not** achieved by just logging out in the terminal!!
 - From EC2 dashboard->instances 
  - You should see your launched instance listed (and selected with blue checkbox)
  - In the "Actions" drop-down menu choose "Instance State" and either "stop" or "terminate"
-   - "stop" will end your session, but keep your instance and data safe for next time you want to use it (there is a very small fee for this - Chris??)
-   - "terminate" will end your session and will **not** retain your data or your instance state
+   - "stop" will end your session, but keep your instance and data safe for next time you want to use it. The fee for maintaining the data volume only will be around $5.50 per month.
+   - "terminate" will end your session and will **not** retain your data or your instance state. There will be no further charge on your account if you choose terminate
 
