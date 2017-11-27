@@ -113,7 +113,7 @@ Output files are written in folder output_images with filename extra_[pred] wher
   - ```python mnist_deep.py --data_dir data/fashion``` *(retrain and test using fashion data)*
 
 #### 5: Ending your AWS session
-When you are finished working on AWS you need to stop (or terminate) your session to discontinue usage charges.
+When you are finished working on AWS you need to stop (or terminate) your AWS instance to discontinue usage charges.
 This is **not** achieved by just logging out in the terminal!!
 
 **Stopping/Terminating your instance.**
