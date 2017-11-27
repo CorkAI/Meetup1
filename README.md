@@ -34,6 +34,7 @@ Redeem your AWS credit using the code on the voucher provided at the workshop
 Now you should be logged into the machine and see a command-line prompt $.
 
 #### 2: Running first tutorial code
+(slides on deep-learning available at http://slides.com/keelinm/deeplearning1)
 **Folder setup**
  Type the following commands to get setup for running the code:
  - ```mkdir -p cork_ai```   *(make a new folder to work in)*
@@ -83,6 +84,7 @@ To download and view the images using putty on Windows:
 **Please refuel before the next session :-) **
 
 #### 4: Running second tutorial code
+(Slides on convnets available at http://slides.com/keelinm/convnets)
 The second tutorial will use a convolutional neural network to solve the same tasks as previously. The code and folder setup is ready for use.  We've added some code to store the trained model on disk, so that we only need to train one time, and for any further tests we can use the trained model stored on disk.  If you want to have a look at the code before you run it please use
  - ```vim mnist_deep.py```
     - (Type Esc then : then q! and hit enter to exit the file)  
