@@ -96,10 +96,8 @@ The second tutorial will use a convolutional neural network to solve the same ta
 Note that if you wish you can copy the saved_model folder to your local machine and try to test the trained model there. The compute GPU is very helpful (or almost essential) for model training but most machines can run the testing phase once the model is trained. 
  
 **Additional exercises**  
-*Additional Exercise 1:*  Run the stored trained convolutional network on the Fashion MNIST data
-  - ```python mnist_deep.py --data_dir data/fashion```
 
-*Additional Exercise 2:* Run the stored trained convolutional network on the (pre-prepared): handwritten digits provided
+*Additional Exercise 1:* Run the stored trained convolutional network on the (pre-prepared): handwritten digits provided
 The git repository contains some manually created test images in folder extra_test_digits.
 Images 1.jpg 2.jpg and 3.jpg are created from photos of handwritten digits (manipulated to be grey-scale, 28x28, white-on-black).  The original photographs are also available to view at 1_photo.jpg etc.
 Images 4.jpg 5.jpg and 6.jpg are created digitally using a 28x28 black background and white 'paintbrush'.
@@ -107,6 +105,10 @@ Have a look at the images and see how closely they resemble the MNIST data (samp
 Now test your trained convolutional network on these images using the following commands
  - ```python mnist_deep.py --extra_test_imgs 1```
 Output files are written in folder output_images with filename extra_[pred] where pred is the digit assigned by the convolutional network.  How well did the network do?!
+
+*Additional Exercise 2:*  Run the convolutional network on the Fashion MNIST data. Note that you will have to re-train using the fashion data, so first delete or rename the saved_model folder which contains the network trained on MNIST digit data.
+  - ```mv saved_model/ saved_model_digits/``` *(rename the saved_model folder to saved_model_digits)*
+  - ```python mnist_deep.py --data_dir data/fashion``` *(retrain and test using fashion data)*
 
 #### 5: Ending your AWS session
 When you are finished working on AWS you need to stop (or terminate) your session to discontinue usage charges.
