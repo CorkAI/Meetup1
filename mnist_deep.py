@@ -238,12 +238,12 @@ def main(_):
         prediction = tf.argmax(y_conv, 1)
         file_prefix = 'extra_'
         for idx in range(1, 7):
-            img_file = 'extra_test_digits/{}{}.jpg'.format(file_prefix, idx)
+            img_file = 'extra_test_digits/{}.jpg'.format(idx)
             img = misc.imread(img_file)
             pred = sess.run(prediction, feed_dict={x: img.reshape(1, 784), keep_prob: 1.0})
 
             plt.imshow(img, cmap='gray')
-            plt.savefig("output_images/{}{}.png".format(file_prefix, pred))
+            plt.savefig("output_images/{}_predicted_{}.png".format(file_prefix, pred))
 
 
 if __name__ == '__main__':
