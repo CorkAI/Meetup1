@@ -105,8 +105,9 @@ Images 1.jpg 2.jpg and 3.jpg are created from photos of handwritten digits (mani
 Images 4.jpg 5.jpg and 6.jpg are created digitally using a 28x28 black background and white 'paintbrush'.
 Have a look at the images and see how closely they resemble the MNIST data (samples in your output_images folder if you have done previous additional exercises).
 Now test your trained convolutional network on these images using the following commands
+ - ```pip install pillow``` *(install the python image library, pillow, needed to read the images)*
  - ```python mnist_deep.py --extra_test_imgs 1```
-Output files are written in folder output_images with filename extra_[pred] where pred is the digit assigned by the convolutional network.  How well did the network do?!
+Output files are written in folder output_images with filename extra_prediction_[pred] where pred is the digit assigned by the convolutional network.  How well did the network do?!
 
 *Additional Exercise 2:*  Run the convolutional network on the Fashion MNIST data. Note that you will have to re-train using the fashion data, so first delete or rename the saved_model folder which contains the network trained on MNIST digit data.
   - ```mv saved_model/ saved_model_digits/``` *(rename the saved_model folder to saved_model_digits)*
