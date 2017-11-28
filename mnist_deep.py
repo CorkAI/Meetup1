@@ -221,7 +221,7 @@ def main(_):
 
             if file_prefix is 'fashion_':
                 real_label = fashion_label_to_name(real_label)
-                pred = fashion_label_to_name(pred)
+                pred = '[' + fashion_label_to_name(pred) + ']'
             else:
                 real_label = real_label.astype(str)
                 pred = pred.astype(str)
