@@ -219,7 +219,7 @@ def main(_):
             real_label = np.argmax(mnist.test.labels[idx])
             correct = pred == real_label
 
-            if file_prefix is 'fashion_deep':
+            if file_prefix is 'fashion_deep_':
                 real_label = fashion_label_to_name(real_label)
                 pred = '[' + fashion_label_to_name(pred) + ']'
             else:
