@@ -13,7 +13,7 @@ Redeem your AWS credit using the code on the voucher provided at the workshop
  - Go to "Services" and under the "compute" heading, choose "EC2"
  - Set "region" in top-right corner to be Ireland
  - Click on "Launch Instance"
- - Select "Deep Learning AMI (Ubuntu) Version 1.0" AMI ID: ami-1812bb61
+ - Scroll down and select "Deep Learning AMI (Ubuntu) Version 1.0" AMI ID: ami-1812bb61
  - Scroll down and select "GPU compute ... p2.xlarge"
  - Click "Review and Launch"
  - Click "Launch"
