@@ -79,7 +79,7 @@ def main(_):
     
     # Train for 1000 epochs
     for _ in range(1000):
-        print(_)
+        print('training epoch', _)
         # get a batch of mnist samples and labels
         batch_xs, batch_ys = mnist.train.next_batch(100)
         # execute our pre-built graph
