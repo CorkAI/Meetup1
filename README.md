@@ -111,7 +111,8 @@ Output files are written in folder output_images with filename extraID_[pred] wh
 
 *Additional Exercise 2:*  Run the convolutional network on the Fashion MNIST data. Note that you will have to re-train using the fashion data, so first delete or rename the saved_model folder which contains the network trained on MNIST digit data.
   - ```mv saved_model/ saved_model_digits/``` *(rename the saved_model folder to saved_model_digits)*
-  - ```python mnist_deep.py --data_dir data/fashion``` *(retrain and test using fashion data)*
+  - ```python mnist_deep.py --data_dir data/fashion --write_samples 1``` *(retrain and test using fashion data)*
+The accuracy on the fashion dataset should be significantly higher with the convolutional network than with the earlier one.  Sample output files are in the output_images folder with the prefix 'fashion_deep'.
 
 #### 5: Ending your AWS session
 When you are finished working on AWS you need to stop (or terminate) your AWS instance to discontinue usage charges.
