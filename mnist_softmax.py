@@ -17,7 +17,7 @@
 # WE USE FASION-MNIST DATA
 # WE TEST ON INDIVIDUAL TEST IMAGES AND WRITE EXAMPLES OF 
 # CORRECT AND INCORRECT CLASSIFICATION TO DISK FOR EXAMINATION
-# ==============================================================================
+#  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  ==  == 
 
 
 """A very simple MNIST classifier.
@@ -79,12 +79,12 @@ def main(_):
     
     # Train for 1000 epochs
     for _ in range(1000):
+        print(_)
         # get a batch of mnist samples and labels
         batch_xs, batch_ys = mnist.train.next_batch(100)
         # execute our pre-built graph
         sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
        
-
     # Set up accuracy measure
     correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
@@ -112,6 +112,10 @@ def main(_):
             
             img = np.reshape(mnist.test.images[idx], [28, 28])
             plt.imshow(img, cmap='gray')
+
+            if file_prefix is 'fashion_':
+                real_label = fashion_label_to_name(real_label)
+                pred = fashion_label_to_name(pred)
             
             if correct and stored_correct < num_each_to_store:
                 stored_correct += 1
@@ -123,6 +127,32 @@ def main(_):
 
     sess.close()
 
+
+# function to convert fashion MNIST label (number) to clothing type string
+def fashion_label_to_name(label):
+    if label == 0:
+        return 'tshirt_top'
+    elif label == 1:
+        return 'trousers'
+    elif label == 2:
+        return 'pullover'
+    elif label == 3:
+        return 'dress'
+    elif label == 4:
+        return 'coat'
+    elif label == 5:
+        return 'sandal'
+    elif label == 6:
+        return 'shirt'
+    elif label == 7:
+        return 'sneaker'
+    elif label == 8:
+        return 'bag'
+    elif label == 9:
+        return 'ankle_boot'
+    else: 
+        return 'category_unknown'
+    
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

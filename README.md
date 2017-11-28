@@ -26,7 +26,7 @@ Redeem your AWS credit using the code on the voucher provided at the workshop
  - You should see your launched instance listed
  - To connect to the instance (using linux, mac or cygwin with openSSH setup) 
    - copy public DNS(ipv4) field
-   - type ```ssh -i /path/my-key-pair.pem ubuntu@[copied-DNS]```
+   - open a shell and type ```ssh -i /path/my-key-pair.pem ubuntu@[copied-DNS]```
    (you may need to type ```chmod 400 /path/my-key-pair.pem``` if your key_pair permissions are incorrect) 
 (If in doubt, see also http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html)
  - To connect to the instance using putty on Windows, please follow directions at http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
@@ -37,16 +37,16 @@ Now you should be logged into the machine and see a command-line prompt $.
 (slides on deep-learning available at http://slides.com/keelinm/deeplearning1)  
 **Folder setup**
  Type the following commands to get setup for running the code:
- - ```mkdir -p cork_ai```   *(make a new folder to work in)*
+ - ```mkdir cork_ai```   *(make a new folder to work in)*
  - ```cd cork_ai```         *(switch to the newly created folder)*
  - ```git clone https://github.com/CorkAI/Meetup1.git```  *(this will make a Meetup1 folder with all the code/data we need)*
  - ```cd Meetup1```     *(switch to the Meetup1 folder)*
- - ```vim mnist_softmax.py```  *(to read/edit the code you are about to run)*
+ - If you want to have a look at the code before you run it, type ```vim mnist_softmax.py```
     - (Type Esc then : then q! and hit enter to exit the file)
 
 **Launch conda environment**
- Our AWS machine has multiple deep-learning environments installed (conda environments).  We need to launch one so that the libraries we need (e.g. tensorflow) are ready for use:
- ```source activate tensorflow_p27```
+ Our AWS machine has multiple deep-learning environments installed (conda environments).  We need to launch one so that the libraries we need (e.g. tensorflow) are ready for use:  
+ - Type ```source activate tensorflow_p27```
 
 **Executing code**
  - Type ```python mnist_softmax.py``` *(and wait up to 2/3 mins!)* 
@@ -54,8 +54,8 @@ Now you should be logged into the machine and see a command-line prompt $.
 
 **Additional exercises**  
 *Additional Exercise 1:* The previous exercise tells us that we achieved 92% accuracy in classifying the MNIST handwritten digits, but we have no intuition about what is going wrong in the other 8% of test images.   In this exercise we iterate through test images one-by-one and write examples to disk of successful and failed classifications.  By viewing these examples (particularly the failed ones), we get a sense of the weaknesses of the system.
-Type the following commands to run this exercise:
- - ```vim mnist_softmax.py``` *(to read/edit the code)*
+To run this exercise:
+ - If you want to read the code first, type ```vim mnist_softmax.py``` 
    - (Type Esc then : then q! and hit enter to exit the file)
  - ```python mnist_softmax.py --write_samples 1```  *(and wait)*  
  
@@ -76,7 +76,7 @@ To download and view the images using putty on Windows:
 
 *Additional Exercise 2:* Although the MNIST dataset has been a computer vision benchmark for a number of years, there have been complaints that the task is too simple to serve as a realistic performance benchmark for modern systems. In response to this Zalando created a drop-in replacement for MNIST, known as Fashion-MNIST, where each image represents an item of clothing, rather than a digit.  See https://github.com/zalandoresearch/fashion-mnist  .  The labels (classes) to be assigned in this case are : 0=T-shirt/top, 1=Trouser, 2=Pullover, 3=Dress, 4=Coat, 5=Sandal, 6=Shirt, 7=Sneaker, 8=Bag, 9=Ankle boot.   The fashion data is already on your machine, pulled from our github (see folder data/fashion).  To re-train and test the network on the Fasion-MNIST set, type the following commands:
  - ```python mnist_softmax.py --data_dir data/fashion --write_samples 1```
- - Number printed at the end is the accuracy of the network (~0.76)
+ - Number printed at the end is the accuracy of the network (varies ~0.70 to ~0.85)
  - Successful and failed examples are also written as in previous exercise, with prefix 'fashion' on filenames
  - use the scp command to download and inspect these images
 
@@ -85,12 +85,12 @@ To download and view the images using putty on Windows:
 
 #### 4: Running second tutorial code
 (Slides on convnets available at http://slides.com/keelinm/convnets)  
-The second tutorial will use a convolutional neural network to solve the same tasks as previously. The code and folder setup is ready for use.  We've added some code to store the trained model on disk, so that we only need to train one time, and for any further tests we can use the trained model stored on disk.  If you want to have a look at the code before you run it please use
- - ```vim mnist_deep.py```
+The second tutorial will use a convolutional neural network to solve the same tasks as previously. The code and folder setup is ready for use.  We've added some code to store the trained model on disk, so that we only need to train one time, and for any further tests we can use the trained model stored on disk.
+ - If you want to look at the code before you run it, type ```vim mnist_deep.py```
     - (Type Esc then : then q! and hit enter to exit the file)  
 
 **Executing code**
- - ```python mnist_deep.py``` *(and wait)*  
+ - ```python mnist_deep.py``` *(and wait, it runs for 20,000 steps)*  
  - Verify the accuracy printed at the end of the file (~99.2%)  
  - type ```ls saved_model``` to verify that a directory named saved_model has been created and contains several files (which store the network graph and parameter values)
  - type ```python mnist_deep.py``` once more to run the code again, and note that the model is restored from disk and does not need to be trained before computing accuracy.
@@ -107,7 +107,7 @@ Have a look at the images and see how closely they resemble the MNIST data (samp
 Now test your trained convolutional network on these images using the following commands
  - ```pip install pillow``` *(install the python image library, pillow, needed to read the images)*
  - ```python mnist_deep.py --extra_test_imgs 1```
-Output files are written in folder output_images with filename extra_prediction_[pred] where pred is the digit assigned by the convolutional network.  How well did the network do?!
+Output files are written in folder output_images with filename extraID_[pred] where ID is the original image name and pred is the digit assigned by the convolutional network.  How well did the network do?! Can you speculate what caused the failures?
 
 *Additional Exercise 2:*  Run the convolutional network on the Fashion MNIST data. Note that you will have to re-train using the fashion data, so first delete or rename the saved_model folder which contains the network trained on MNIST digit data.
   - ```mv saved_model/ saved_model_digits/``` *(rename the saved_model folder to saved_model_digits)*

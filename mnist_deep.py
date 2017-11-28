@@ -179,7 +179,7 @@ def main(_):
 
     # If no trained model on disk, then train it now:
     else:
-        print("Did not file stored model, starting training")
+        print("Did not find stored model, starting training")
         sess.run(tf.global_variables_initializer())
         for i in range(20000):
             # grab a batch of training data
@@ -219,6 +219,10 @@ def main(_):
             real_label = np.argmax(mnist.test.labels[idx])
             correct = pred == real_label
 
+            if file_prefix is 'fashion_':
+                real_label = fashion_label_to_name(real_label)
+                pred = fashion_label_to_name(pred)
+
             img = np.reshape(mnist.test.images[idx], [28, 28])
             plt.imshow(img, cmap='gray')
 
@@ -243,7 +247,33 @@ def main(_):
             pred = sess.run(prediction, feed_dict={x: img.reshape(1, 784), keep_prob: 1.0})
 
             plt.imshow(img, cmap='gray')
-            plt.savefig("output_images/{}_predicted_{}.png".format(file_prefix, pred))
+            plt.savefig("output_images/{}{}predicted_{}.png".format(file_prefix, idx, pred))
+
+
+# function to convert fashion MNIST label (number) to clothing type string
+def fashion_label_to_name(label):
+    if label == 0:
+        return 'tshirt_top'
+    elif label == 1:
+        return 'trousers'
+    elif label == 2:
+        return 'pullover'
+    elif label == 3:
+        return 'dress'
+    elif label == 4:
+        return 'coat'
+    elif label == 5:
+        return 'sandal'
+    elif label == 6:
+        return 'shirt'
+    elif label == 7:
+        return 'sneaker'
+    elif label == 8:
+        return 'bag'
+    elif label == 9:
+        return 'ankle_boot'
+    else:
+        return 'category_unknown'
 
 
 if __name__ == '__main__':
