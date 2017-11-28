@@ -206,7 +206,7 @@ def main(_):
     if FLAGS.write_samples:
         file_prefix = ''
         if 'fashion' in FLAGS.data_dir:
-            file_prefix = 'fashion_'
+            file_prefix = 'fashion_deep_'
         if not os.path.exists(os.path.join(os.getcwd(), 'output_images')):
             os.makedirs(os.path.join(os.getcwd(), 'output_images'))
         prediction = tf.argmax(y_conv, 1)    # output the class that is predicted
@@ -219,7 +219,7 @@ def main(_):
             real_label = np.argmax(mnist.test.labels[idx])
             correct = pred == real_label
 
-            if file_prefix is 'fashion_':
+            if file_prefix is 'fashion_deep':
                 real_label = fashion_label_to_name(real_label)
                 pred = '[' + fashion_label_to_name(pred) + ']'
             else:

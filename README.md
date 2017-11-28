@@ -107,7 +107,7 @@ Have a look at the images and see how closely they resemble the MNIST data (samp
 Now test your trained convolutional network on these images using the following commands
  - ```pip install pillow``` *(install the python image library, pillow, needed to read the images)*
  - ```python mnist_deep.py --extra_test_imgs 1```
-Output files are written in folder output_images with filename extraID_[pred] where ID is the original image name and pred is the digit assigned by the convolutional network.  How well did the network do?! Can you speculate what caused the failures?
+Output files are written in folder output_images with filename extraID_[pred] where ID is the original image name and pred is the digit assigned by the convolutional network. Use scp to copy the output images to your local machine for inspection (see earlier Additional Exercise 1 for scp instructions). How well did the network do?! Can you speculate what caused the failures?
 
 *Additional Exercise 2:*  Run the convolutional network on the Fashion MNIST data. Note that you will have to re-train using the fashion data, so first delete or rename the saved_model folder which contains the network trained on MNIST digit data.
   - ```mv saved_model/ saved_model_digits/``` *(rename the saved_model folder to saved_model_digits)*
