@@ -222,16 +222,19 @@ def main(_):
             if file_prefix is 'fashion_':
                 real_label = fashion_label_to_name(real_label)
                 pred = fashion_label_to_name(pred)
+            else:
+                real_label = real_label.astype(str)
+                pred = pred.astype(str)
 
             img = np.reshape(mnist.test.images[idx], [28, 28])
             plt.imshow(img, cmap='gray')
 
             if correct and stored_correct < num_each_to_store:
                 stored_correct += 1
-                plt.savefig("output_images/{}success_{}.png".format(file_prefix, real_label.astype(str)))
+                plt.savefig("output_images/{}success_{}.png".format(file_prefix, real_label))
             elif not correct and stored_incorrect < num_each_to_store:
                 stored_incorrect += 1
-                plt.savefig("output_images/{}fail_{}_{}.png".format(file_prefix, real_label.astype(str), pred.astype(str)))
+                plt.savefig("output_images/{}fail_{}_{}.png".format(file_prefix, real_label, pred))
             idx += 1
 
     # Test on extra test images made from photos of handwritten digits
