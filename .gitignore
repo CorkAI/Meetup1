@@ -2,4 +2,4 @@
 *.swp
 private/
 output_images/
-saved_model/
+saved_model*/
